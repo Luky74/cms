@@ -1,0 +1,20 @@
+{
+    "name": "lucas/cms",
+    "authors": [
+        {
+            "name": "Lucas Meunier",
+            "email": "lucas.meunier74500@hotmail.com"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "Router\\": "routes/",
+            "App\\": "app/",
+            "Database\\": "database/"
+        }
+    },
+    "require": {
+      "ext-pdo": "*"
+    }
+}
