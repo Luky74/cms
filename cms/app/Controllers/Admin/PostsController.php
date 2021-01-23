@@ -10,7 +10,7 @@ class PostsController extends Controller {
 
     public function index()
     {
-        //$this->isAdmin(); //Protéger les données
+        //$this->isAdmin(); //Protéger les données en obligent la connexion
 
         $posts =  (new Post($this->getDB()))->all();
 
@@ -31,7 +31,6 @@ class PostsController extends Controller {
         //$this->isAdmin();
 
         $post = new Post($this->getDB());
-        $tags = array_pop($_POST);
         $result = $post->create($_POST);
 
         if ($result) {

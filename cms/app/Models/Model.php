@@ -15,21 +15,28 @@ abstract class Model {
         $this->db = $db;
     }
 
+    //Fonction qui récupère la date de création
+    public function getCreatedAt(): string
+    {
+        return (new DateTime($this->created_at))->format('d/m/Y a H:i');
+    }
+
     public function all(): array
     {
         return $this->query("SELECT * FROM {$this->table} ORDER BY created_at DESC");
 
     }
 
+    //Fonction pour chercher un article depuis sont tag (ne fonctionne pas)
     public function findById(int $id): Model
     {
         $stmt = $this->db->getPDO()->prepare("SELECT * FROM {$this->table} WHERE id = ?");
         $stmt->setFetchMode(PDO::FETCH_CLASS, get_class($this), [$this->db]);
         $stmt->execute([$id]);
         return $stmt->fetch();
-        //return $this->query("SELECT * FROM {$this->table} WHERE id = ?", [$id], true);
     }
 
+    //Fonction qui permet de créer un post
     public function create(array $data, ?array $relations = null)
     {
         $firstParent = "";
@@ -46,6 +53,7 @@ abstract class Model {
         return $this->query("INSERT INTO {$this->table} ($firstParent) VALUES ($secondParent)", $data);
     }
 
+    //Fonction pour modifier un post
     public function update(int $id, array $data)
     {
         $sqlRequestPart = "";
@@ -63,6 +71,7 @@ abstract class Model {
 
     }
 
+    //Fonction pour supprimer un post
     public function destroy(int $id): bool
     {
         return $this->query("DELETE FROM {$this->table} WHERE id = ?", [$id]);
@@ -73,9 +82,11 @@ abstract class Model {
         $method = is_null($param) ? 'query' : 'prepare';
 
         if (strpos($sql, 'DELETE') === 0 || strpos($sql, 'UPDATE') === 0 || strpos($sql, 'INSERT') === 0) { //supprimer un article dans la base de donnée avec strpos
-
             $stmt = $this->db->getPDO()->$method($sql);
             $stmt->setFetchMode(PDO::FETCH_CLASS, get_class($this), [$this->db]);
+            $param['created_at'] = $this->getCreatedAt();
+            $param["id"] = 100;
+            print_r($param);
             return $stmt->execute($param);
         }
 

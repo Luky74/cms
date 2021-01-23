@@ -5,7 +5,9 @@ namespace App\Models;
 
 class User extends Model {
 
-    protected $table = 'users'; //Chercher le nom d'utilisateur dans la bdd (fonction utilisé dans UserController)
+    protected $table = 'users'; //Entrer dans la bonne table dans la bdd
+
+    //Chercher le nom d'utilisateur dans la bdd (fonction utilisé dans UserController)
 
     public function getByUsername(string $username)
     {

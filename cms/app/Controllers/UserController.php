@@ -27,13 +27,13 @@ class UserController extends Controller {
         }
 
         $user = (new User($this->getDB()))->getByUsername($_POST['username']); //connexion à la BDD
-
+        var_dump($user);
         if (password_verify($_POST['password'], $user->password)) { //mot de passe crypté, veririfitaion dans la bdd si les champs remplis correspondent
                 $_SESSION['auth'] = (int) $user->admin;
                 return header('Location: /admin/posts?success=true');
 
         } else { //Si c'est faux, on reste sur la même page
-            return header('Location: /login');
+           // return header('Location: /login');
         }
     }
 

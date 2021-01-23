@@ -12,7 +12,7 @@
     </div>
     <div class="field">
         <label class="label" for="content">Contenue de l'aticle</label>
-        <textarea type="text" class="textarea" name="content" id="content"><?= $params['post']->content ?? '' ?></textarea>
+        <textarea class="textarea" name="content" id="content"><?= $params['post']->content ?? '' ?></textarea>
     </div>
     <div class="select is-multiple">
         <label for="tags" class="label">Tags de l'article</label>
